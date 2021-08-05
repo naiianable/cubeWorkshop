@@ -3,6 +3,7 @@
 const engine = require('./express');
 const express = require('express');
 const exphbs = require('express-handlebars');
+const Cube = require('../models/Cube');
 // const renderPages = require('./renderPages.js');
 
 module.exports = (app) => {
@@ -32,6 +33,13 @@ module.exports = (app) => {
 
     app.post('/create', function(req, res) {
         console.log(req.body);
+        const newNewCube = new Cube({
+            name: 'Pointy Cube',
+            description: 'Sharp and pointed',
+            imageURL: 'randomUrl',
+            difficulty: 4
+        });
+        console.log(newNewCube);
         res.send('form submission recevied');
     });
 };

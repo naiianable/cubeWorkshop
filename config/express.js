@@ -42,3 +42,4 @@ module.exports = (app) => {
 // // setting view engine to hbs, engine compiles views and data into HTML
 
 // app.set('view engine', 'hbs');
+
