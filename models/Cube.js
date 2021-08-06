@@ -5,16 +5,16 @@ const mongoose = require('mongoose');
 const newCube = new mongoose.Schema({
     name: String,
     description: String,
-    imageURL: String,
-    difficulty: Number
+    imageUrl: String,
+    difficultyLevel: Number
 });
 
-const myCube = mongoose.model('Cube', newCube);
-console.log(myCube);
+const Cube = mongoose.model('Cube', newCube);
+console.log(Cube);
 
 // myCube.save(function(err, myCube) {
 //     if(err) return console.err(err);
 //     console.log(myCube);
 // });
 
-module.exports = myCube;
+module.exports = Cube;

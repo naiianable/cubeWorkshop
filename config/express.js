@@ -16,7 +16,7 @@ module.exports = (app) => {
 	exphbs({
 		extname: "hbs",
 		defaultLayout: "",
-        //layout of the page is in a foler in /views
+        //layout of the page is in a folder in /views
         layoutsDir: __dirname + "/views",
         partialsDir: __dirname + "/views",
 	})
