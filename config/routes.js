@@ -26,20 +26,28 @@ module.exports = (app) => {
     });
     //params.id will give you everything after the url
 
+    app.get('/create/accessory', function(req, res) {
+        res.render('createAccessory');
+    });
+
+    // app.get('/create/accessory/:id', function(req, res) {
+    //     res.render('attachAccessory');
+    // });
+
     // '/*' means 'every other page, render this one' 
     app.get('/*', function(req, res) {
         res.render('404');
     });
 
     app.post('/create', function(req, res) {
-        console.log(req.body);
-        const newNewCube = new Cube({
-            name: 'Pointy Cube',
-            description: 'Sharp and pointed',
-            imageURL: 'randomUrl',
-            difficulty: 4
-        });
-        console.log(newNewCube);
-        res.send('form submission recevied');
+        console.log('THIS IS THE REQUEST.BODY', req.body);
+        //req.body = parsed json data from body parser in express.js
+        //putting it into cube schema
+        let newCube = new Cube(req.body);
+        
+        newCube.save(function (err, newCube) {
+            if (err) return console.error(err);
+          });
+        res.redirect('/');
     });
 };
