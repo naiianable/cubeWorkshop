@@ -30,6 +30,15 @@ module.exports = (app) => {
         res.render('createAccessory');
     });
 
+    app.get('/attach/accessory', function(req, res) {
+        res.render('attachAccessory');
+    });
+
+    //NOT WORKING YET
+    app.get('/details/:id', function(req, res) {
+        res.render('updatedDetailsPage');
+    });
+
     // app.get('/create/accessory/:id', function(req, res) {
     //     res.render('attachAccessory');
     // });
