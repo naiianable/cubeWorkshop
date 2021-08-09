@@ -13,7 +13,7 @@ module.exports = (app) => {
     app.get('/', function(req, res) {
         //.find method access items in database requested.  generic function used to access cubes
         Cube.find(function(err, cubes) {
-            console.log(cubes);
+            //console.log(cubes);
             res.render('index', {cubes});
         }).lean();
         
@@ -29,33 +29,15 @@ module.exports = (app) => {
 
     //grabbing details from specific id of cube
     app.get('/details/:id', function(req, res) {
-        //console.log(url.parse(req.url).pathname);
-        let cubeId = req.url.split('/')[2];
-
-        Cube.find(function(err, ) {
-
-            res.render('details', cubeData); 
-        });
+        Cube.find(function(err, cubes) {
+            let cubeId = req.url.split('/')[2];
+            let cubeDetails = cubes.filter(data => data._id == cubeId);
+            console.log('this is the cube', cubeDetails);
+            res.render('details', {cubeDetails}); 
+        }).lean();
         
     });
     //params.id will give you everything after the url
-
-    // app.get('/details/:id', (req, res) => {
-    //     Cube.find(function(err, cubes){
-    //         if (err) return console.log(err);
-    //         const path = url.parse(req.url).pathname;
-    //         let currentId = path.split('/')[2];
-    //         console.log("Printing", currentId);
-    //         console.log("This is cubes: ", cubes);
-    //         let currentCube = cubes.filter(cube => {
-    //             console.log("1:" , typeof cube._id);
-    //             console.log("2: ", typeof currentId);
-
-    //         });
-    //         console.log("This is currentCube: ", currentCube);
-    //         res.render('details', {currentCube});
-    //     });
-    // });
 
     app.get('/create/accessory', function(req, res) {
         res.render('createAccessory');
