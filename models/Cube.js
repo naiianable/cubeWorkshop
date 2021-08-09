@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Accessory = require('./Accessory');
 // const { Schema } = mongoose.Schema;
 
 //schema blueprint for new cubes being pushed
