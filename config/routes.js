@@ -32,29 +32,36 @@ module.exports = (app) => {
         Cube.find(function(err, cubes) {
             let cubeId = req.url.split('/')[2];
             let cubeDetails = cubes.filter(data => data._id == cubeId);
-            console.log('this is the cube', cubeDetails);
+            //console.log('this is the cube', cubeDetails);
             res.render('details', {cubeDetails}); 
-        }).lean();
-        
+        }).lean(); 
     });
-    //params.id will give you everything after the url
 
     app.get('/create/accessory', function(req, res) {
         res.render('createAccessory');
     });
 
-    app.get('/attach/accessory', function(req, res) {
-        res.render('attachAccessory');
+    app.get('/attachAccessory/:id', function(req, res) {
+        Cube.find(function(err, cubes) {
+            let cubeId = req.url.split('/')[2];
+            let cubeDetails = cubes.filter(data => data._id == cubeId);
+            console.log('THESE ARE THE CUBES', cubes);
+            
+            Accessory.find(function(err, accessories) {
+
+                let accessoryList = [];
+                accessories.forEach(element => {
+                    accessoryList.push(element);
+                });
+                console.log(accessoryList);
+                res.render('attachAccessory', {cubeDetails, accessoryList});
+            }).lean(); 
+        }).lean();
     });
 
-    //NOT WORKING YET
     app.get('/details/:id', function(req, res) {
         res.render('updatedDetailsPage');
     });
-
-    // app.get('/create/accessory/:id', function(req, res) {
-    //     res.render('attachAccessory');
-    // });
 
     // '/*' means 'every other page, render this one' 
     app.get('/*', function(req, res) {
@@ -79,9 +86,14 @@ module.exports = (app) => {
         //putting it into cube schema
         let newAccessory = new Accessory(req.body);
         
-        newCube.save(function (err, newCube) {
+        newAccessory.save(function (err, newAccessory) {
             if (err) return console.error(err);
+            
           });
         res.redirect('/');
+    });
+
+    app.post('/attachAccessory/:id', function(req, res) {
+
     });
 };
