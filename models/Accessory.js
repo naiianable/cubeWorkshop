@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Cube = require('./Cube');
-// const { Schema } = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const newAccessory = new mongoose.Schema({
+const newAccessory = new Schema({
     name: String,
     imageUrl: String,
     description: String,
