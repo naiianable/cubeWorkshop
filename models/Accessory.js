@@ -10,6 +10,6 @@ const newAccessory = new Schema({
 });
 
 const Accessory = mongoose.model('Accessory', newAccessory);
-console.log(Accessory);
+//console.log(Accessory);
 
 module.exports = Accessory;

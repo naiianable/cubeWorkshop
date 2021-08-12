@@ -1,5 +1,3 @@
-// TODO: Require Controllers...
-//requiring code from /express.js...requiring the view engine that was setup
 const engine = require('./express');
 const express = require('express');
 const exphbs = require('express-handlebars');
@@ -28,13 +26,15 @@ module.exports = (app) => {
     });
 
     //grabbing details from specific id of cube
-    app.get('/details/:id', function(req, res) {
-        Cube.find(function(err, cubes) {
-            let cubeId = req.url.split('/')[2];
-            let cubeDetails = cubes.filter(data => data._id == cubeId);
-            //console.log('this is the cube', cubeDetails);
-            res.render('details', {cubeDetails}); 
-        }).lean(); 
+    app.get('/details/:id', async function(req, res) {
+        let cubeId = req.url.split('/')[2];
+        //finding the specific cube called upon with callback function
+        let cubeDetails = await Cube.findById(cubeId, function(err, cube) {
+            console.log(cube);
+            //populating the accessory key using the object ids currently stored within its values
+        }).populate('accessory')
+        .lean(); 
+           res.render('details', {cubeDetails}); 
     });
 
     app.get('/create/accessory', function(req, res) {
@@ -45,7 +45,7 @@ module.exports = (app) => {
         Cube.find(function(err, cubes) {
             let cubeId = req.url.split('/')[2];
             let cubeDetails = cubes.filter(data => data._id == cubeId);
-            console.log('THESE ARE THE CUBES', cubes);
+            //console.log('THESE ARE THE CUBES', cubes);
             
             Accessory.find(function(err, accessories) {
 
@@ -53,15 +53,12 @@ module.exports = (app) => {
                 accessories.forEach(element => {
                     accessoryList.push(element);
                 });
-                console.log(accessoryList);
+                //console.log(accessoryList);
                 res.render('attachAccessory', {cubeDetails, accessoryList});
             }).lean(); 
         }).lean();
     });
 
-    app.get('/details/:id', function(req, res) {
-        res.render('updatedDetailsPage');
-    });
 
     // '/*' means 'every other page, render this one' 
     app.get('/*', function(req, res) {
@@ -94,6 +91,30 @@ module.exports = (app) => {
     });
 
     app.post('/attachAccessory/:id', function(req, res) {
+        let cubeId = req.params.id;
 
+            Cube.findById(cubeId, function(err, theCube) {
+                if (err) return console.error(err);
+                console.log(theCube);
+                console.log('THIS IS accessory', req.body);
+                
+            })//find one cube whos id is cubeId
+                .findOne({_id: cubeId}, function(error, data) {
+                    console.log('THIS IS ACCESSORY IN DATABASE', data);
+                })
+                .then(response => {
+                    //accessory chosen in dropdown menu
+                    let attachedAccessory = req.body;
+                    //initial response showing the original cube and its data
+                    console.log('THIS is temp', response);
+                    //pushing chosen accessory into accessory array in data
+                    response.accessory.push(attachedAccessory.accessory);
+                    console.log('THIS IS UPDATED TEMP', response);
+                    //saving the cube and new accessories in database
+                    response.save(function(err, temp) {
+                        if (err) return console.error(err);
+                    });
+                });
+            res.redirect(`/attachAccessory/${cubeId}`);        
     });
 };
