@@ -16,9 +16,11 @@ let postAttach = function(req, res) {
                 //accessory chosen in dropdown menu
                 let attachedAccessory = req.body;
                 //initial response showing the original cube and its data
+
                 console.log('THIS is temp', response);
                 //pushing chosen accessory into accessory array in data
                 response.accessory.push(attachedAccessory.accessory);
+                
                 console.log('THIS IS UPDATED TEMP', response);
                 //saving the cube and new accessories in database
                 response.save(function(err, temp) {
