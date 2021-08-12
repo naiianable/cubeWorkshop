@@ -1,14 +1,10 @@
 const Cube = require('../../models/Cube');
 
-let renderEdit = function(req, res) {
+let renderEdit = async function(req, res) {
 
     let cubeId = req.params.id;
-    Cube.findById(cubeId, function(err, cube) {
-        console.log(cube);
-        res.render('editCubePage', {cube});
-        
-    }).lean();
-    
+    let cubeDetails = await Cube.findById(cubeId).lean();
+    res.render('editCubePage', {cubeDetails});
 };
 
 module.exports = renderEdit;
