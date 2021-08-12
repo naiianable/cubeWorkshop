@@ -10,7 +10,8 @@ const newCube = new Schema({
     difficultyLevel: Number,
     //mongoose docs...populate => replacing specified paths in the doc with docs from other collections
     //referencing Accessory.js.  type is the schema.types.objectid
-    accessory: [{type: Schema.Types.ObjectId, ref: 'Accessory'}]
+    accessory: [{ type: Schema.Types.ObjectId, ref: 'Accessory' }],
+    creatorId: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 //mongodb takes first arg 'Cube' and makes a collection.  it makes it lowercase and pluralizes
