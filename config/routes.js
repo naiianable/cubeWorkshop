@@ -10,6 +10,7 @@ const renderDetails = require('../controllers/renderControllers/renderDetails');
 const renderCreateAcc = require('../controllers/renderControllers/renderCreateAcc');
 const renderAttachAcc = require('../controllers/renderControllers/renderAttachAcc');
 const renderEdit = require('../controllers/renderControllers/renderEdit');
+const renderDelete = require('../controllers/renderControllers/renderDelete');
 const render404 = require('../controllers/renderControllers/render404');
 
 const postCreate = require('../controllers/postControllers/postCreate');
@@ -38,11 +39,7 @@ module.exports = (app) => {
 
     app.get('/editCubePage/:id', renderEdit);
 
-    app.get('/deleteCubePage/:id', function(req, res) {
-        let cubeId = req.params.id;
-        console.log(cubeId);
-        res.render('deleteCubePage');
-    });
+    app.get('/deleteCubePage/:id', renderDelete);
 
     // '/*' means 'every other page, render this one' 
     app.get('/*', render404);
