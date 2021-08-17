@@ -18,8 +18,8 @@ let postLogin = async function(req, res) {
     bcrypt.compare(plainTextPass, userHashPass).then(function(result) {
         if(result == true) {
             const payload = { userId, userName };
-            const secret = 'Thisisthesecret';
-            const options = { expiresIn: '10000' };
+            const secret = process.env.MYSECRET;
+            const options = { expiresIn: '20m' };
 
             var token = jwt.sign(payload, secret, options);
 

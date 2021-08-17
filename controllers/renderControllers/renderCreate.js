@@ -1,5 +1,6 @@
 let renderCreate = function(req, res) {
-    res.render('create');
+    let loggedIn = req.cookies.loggedIn;
+    res.render('create', { loggedIn });
 };
 
 module.exports = renderCreate;

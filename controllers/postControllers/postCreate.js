@@ -5,6 +5,8 @@ let postCreate = function(req, res) {
     //req.body = parsed json data from body parser in express.js
     //putting it into cube schema
     let newCube = new Cube(req.body);
+
+    
     
     newCube.save(function (err, newCube) {
         if (err) return console.error(err);

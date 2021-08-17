@@ -1,7 +1,8 @@
 
 
 let renderLogin = function(req, res) {
-    res.render('loginPage');
+    let loggedIn = req.cookies.loggedIn;
+    res.render('loginPage', { loggedIn });
 };
 
 module.exports = renderLogin;

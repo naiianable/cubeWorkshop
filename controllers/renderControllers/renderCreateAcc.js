@@ -1,5 +1,6 @@
 let renderCreateAcc = function(req, res) {
-    res.render('createAccessory');
+    let loggedIn = req.cookies.loggedIn;
+    res.render('createAccessory', { loggedIn });
 };
 
 module.exports = renderCreateAcc;
