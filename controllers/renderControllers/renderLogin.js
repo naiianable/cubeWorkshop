@@ -1,3 +1,5 @@
+
+
 let renderLogin = function(req, res) {
     res.render('loginPage');
 };

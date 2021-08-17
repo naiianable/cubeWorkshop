@@ -1,6 +1,10 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+//require('dotenv').config();
+
 
 module.exports = (app) => {
     
@@ -25,6 +29,9 @@ module.exports = (app) => {
     //TODO: Setup the body parser
     //WHAT IS A BODY PARSER????
     app.use(bodyParser.urlencoded({ extended: true }));
+
+    //allows me to access cookies in browser using req.cookies
+    app.use(cookieParser());
 
     //TODO: Setup the static files
     app.use(express.static('static'));
