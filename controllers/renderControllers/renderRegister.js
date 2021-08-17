@@ -1,5 +1,6 @@
 let renderRegister = function(req, res) {
-    res.render('registerPage');
+    let loggedIn = req.cookies.loggedIn;
+    res.render('registerPage', { loggedIn });
 };
 
 module.exports = renderRegister;

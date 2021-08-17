@@ -21,7 +21,7 @@ const postCreate = require('../controllers/postControllers/postCreate');
 const postCreateAcc = require('../controllers/postControllers/postCreateAcc');
 const postAttach = require('../controllers/postControllers/postAttach');
 const postRegister = require('../controllers/postControllers/postRegister');
-
+const postDelete = require('../controllers/postControllers/postDelete');
 
 module.exports = (app) => {
     //getting all the routes working for express.js
@@ -44,7 +44,7 @@ module.exports = (app) => {
 
     app.get('/editCubePage/:id', renderEdit);
 
-    app.get('/deleteCubePage/:id', renderDelete);
+    app.get('/deleteCube/:id', renderDelete);
 
     // '/*' means 'every other page, render this one' 
     app.get('/*', render404);
@@ -58,4 +58,6 @@ module.exports = (app) => {
     app.post('/register', postRegister);
 
     app.post('/login', postLogin);
+
+    app.post('/deleteCube/:id', postDelete);
 };
