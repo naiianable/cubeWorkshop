@@ -2,6 +2,7 @@ const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const renderIndex = require('../controllers/renderControllers/renderIndex');
 const renderLogin = require('../controllers/renderControllers/renderLogin');
@@ -15,6 +16,7 @@ const renderEdit = require('../controllers/renderControllers/renderEdit');
 const renderDelete = require('../controllers/renderControllers/renderDelete');
 const render404 = require('../controllers/renderControllers/render404');
 
+const postLogin = require('../controllers/postControllers/postLogin');
 const postCreate = require('../controllers/postControllers/postCreate');
 const postCreateAcc = require('../controllers/postControllers/postCreateAcc');
 const postAttach = require('../controllers/postControllers/postAttach');
@@ -54,4 +56,6 @@ module.exports = (app) => {
     app.post('/attachAccessory/:id', postAttach);
 
     app.post('/register', postRegister);
+
+    app.post('/login', postLogin);
 };
