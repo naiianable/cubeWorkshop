@@ -2,6 +2,8 @@ const Cube = require('../../models/Cube');
 const Accessory = require('../../models/Accessory');
 
 let renderAttachAcc = function(req, res) {
+    let loggedIn = req.cookies.loggedIn;
+    
     Cube.find(function(err, cubes) {
         let cubeId = req.url.split('/')[2];
         let cubeDetails = cubes.filter(data => data._id == cubeId);
@@ -14,7 +16,7 @@ let renderAttachAcc = function(req, res) {
                 accessoryList.push(element);
             });
             //console.log(accessoryList);
-            res.render('attachAccessory', {cubeDetails, accessoryList});
+            res.render('attachAccessory', { cubeDetails, accessoryList, loggedIn });
         }).lean(); 
     }).lean();
 };

@@ -32,11 +32,17 @@
                 <p><span>Description:</span>{{description}}</p>
                 <p><span>Difficulty level:</span> {{difficultyLevel}}</p>
                 <a class="btn" href="/">Back</a>
+                {{/with}}
+                {{#if authorized}}
+                {{#with cubeDetails}}
                 <a class="btn" href="/attachAccessory/{{_id}}">Attach Item</a>
                 <a class="btn" href="/editCubePage/{{_id}}">Edit Cube</a>
                 <a class="btn" href="/deleteCube/{{_id}}">Delete Cube</a>
+                {{/with}}
+                {{/if}}
             </div>
             {{#if accessory}}
+            {{#with cubeDetails}}
             <h2>Accessories</h2>
             <div class="accessories">
                 <div class="accessory">
@@ -46,11 +52,12 @@
                     <p>{{description}}</p>
                     {{/each}}  
                 </div>
+            {{/with}}  
             {{/if}}
                 {{#unless accessory}}
                 <h3 class="italic">This cube has no accessories yet...</h3>
                 {{/unless}}
-            {{/with}}
+            
             </div>
         </main>
     </div>
