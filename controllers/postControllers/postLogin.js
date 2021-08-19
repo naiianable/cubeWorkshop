@@ -19,7 +19,7 @@ let postLogin = async function(req, res) {
         if(result == true) {
             const payload = { userId, userName };
             const secret = process.env.MYSECRET;
-            const options = { expiresIn: '20m' };
+            const options = { expiresIn: '60m' };
 
             var token = jwt.sign(payload, secret, options);
 
