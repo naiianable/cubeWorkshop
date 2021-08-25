@@ -18,9 +18,11 @@ const postRegister = require('../controllers/postControllers/postRegister');
 const postEdit = require('../controllers/postControllers/postEdit');
 const postDelete = require('../controllers/postControllers/postDelete');
 
-//const jwtVerify = require('../middleware/jwtVerify');
-const validation = require('../middleware/validation');
+const registerValidation = require('../middleware/registerValidation');
+const createValidation = require('../middleware/createValidation');
+const loginValidation = require('../middleware/loginValidation');
 const clearCookie = require('../middleware/clearCookie');
+const logout = require('../middleware/logout');
 const errorMsg = require('../middleware/errorMsg');
 
 module.exports = (app) => {
@@ -29,7 +31,7 @@ module.exports = (app) => {
 
     app.get('/login', clearCookie, renderLogin);
 
-    app.get('/register', validation, clearCookie, renderRegister);
+    app.get('/register', renderRegister);
        
     app.get('/create', renderCreate);
 
@@ -46,18 +48,20 @@ module.exports = (app) => {
 
     app.get('/deleteCube/:id', renderDelete);
 
+    app.get('/logout', logout);
+
     // '/*' means 'every other page, render this one' 
     app.get('/*', render404);
 
-    app.post('/create', postCreate);
+    app.post('/create', createValidation, postCreate);
 
     app.post('/create/accessory', postCreateAcc);
 
     app.post('/attachAccessory/:id', postAttach);
 
-    app.post('/register', validation, postRegister);
+    app.post('/register', registerValidation, postRegister);
 
-    app.post('/login', postLogin);
+    app.post('/login', loginValidation, postLogin);
 
     app.post('/editCube/:id', postEdit);
 

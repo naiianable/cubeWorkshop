@@ -1,5 +1,6 @@
 const Cube = require('../../models/Cube');
 const jwt = require('jsonwebtoken');
+const { body, validationResult } = require('express-validator');
 
 let postCreate = function(req, res) {
     //console.log('THIS IS THE REQUEST.BODY', req.body);
@@ -11,12 +12,21 @@ let postCreate = function(req, res) {
     let userData = jwt.verify(token, process.env.MYSECRET);
     newCube.creatorId = userData.userId;
 
-    console.log(newCube);
+    let errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+      res.cookie('errorMsg', errors);
+      console.log(errors);
+      res.redirect('/create');
+    } else if(errors.isEmpty()){
+      newCube.save(function (err, newCube) {
+          if (err) return console.error(err);
+        });
+      res.redirect('/');
+    }
+
     
-    newCube.save(function (err, newCube) {
-        if (err) return console.error(err);
-      });
-    res.redirect('/');
+    
 };
 
 module.exports = postCreate;
