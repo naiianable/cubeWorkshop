@@ -1,7 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-
-    let validationBodyRules = [
+let validationBodyRules = [
     //do checks here
     body('name', 'Cube name needs to be at least 5 characters')
     .trim()
@@ -22,5 +21,4 @@ const { body, validationResult } = require('express-validator');
         
     ];
 
-
-module.exports = validationBodyRules;
+    module.exports = validationBodyRules;

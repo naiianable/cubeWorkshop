@@ -55,7 +55,7 @@ module.exports = (app) => {
 
     app.post('/create', createValidation, postCreate);
 
-    app.post('/create/accessory', postCreateAcc);
+    app.post('/create/accessory', createValidation, postCreateAcc);
 
     app.post('/attachAccessory/:id', postAttach);
 

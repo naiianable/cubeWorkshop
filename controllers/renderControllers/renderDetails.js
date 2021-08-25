@@ -9,7 +9,7 @@ let renderDetails = async function(req, res) {
                 .populate('accessory')
                 .lean(); 
         let loggedIn = req.cookies.loggedIn;
-
+        let accessories = cubeDetails.accessory;
         if(loggedIn) {
                 let token = req.cookies.token;
                 let userData = jwt.verify(token, process.env.MYSECRET);
@@ -21,12 +21,13 @@ let renderDetails = async function(req, res) {
                 } else {
                         authorized = false;
                 }
-                // console.log('THIS IS DETAILS FROM CUBE DB', cubeDetails.creatorId);
-                res.render('details', { cubeDetails, authorized, loggedIn }); 
+                
+                console.log('THIS IS DETAILS FROM CUBE', accessories);
+                res.render('details', { cubeDetails, authorized, accessories, loggedIn }); 
 
         } else {
                 
-                res.render('details', { cubeDetails, loggedIn, authorized: false }); 
+                res.render('details', { cubeDetails, loggedIn, accessories, authorized: false }); 
         }
         
 };
