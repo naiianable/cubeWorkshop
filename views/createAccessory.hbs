@@ -18,13 +18,18 @@
                 {{#if loggedIn}}
                 <li><a href="/create">Add a Cube</a></li>
                 <li><a href="/create/accessory">Add Accessory</a></li>
-                <li><a href="/">Logout</a></li>
+                <li><a href="/logout">Logout</a></li>
                 {{else}}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
                 {{/if}}
             </ul>
         </header>
+        {{#if errorDisplay}}
+            <div id='notifications'>
+            <p id='notification-message'>{{errorDisplay}}</p>
+            </div>
+        {{/if}}
         <main>
             <h1>Create Accessory</h1>
             <div class="form">

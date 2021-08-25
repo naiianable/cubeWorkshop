@@ -17,7 +17,7 @@
                 {{#if loggedIn}}
                 <li><a href="/create">Add a Cube</a></li>
                 <li><a href="/create/accessory">Add Accessory</a></li>
-                <li><a href="/">Logout</a></li>
+                <li><a href="/logout">Logout</a></li>
                 {{else}}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
@@ -41,20 +41,20 @@
                 {{/with}}
                 {{/if}}
             </div>
-            {{#if accessory}}
-            {{#with cubeDetails}}
+            {{#if accessories}}
+            
             <h2>Accessories</h2>
             <div class="accessories">
                 <div class="accessory">
-                    {{#each accessory}}
+                    {{#each accessories}}
                     <img src="{{imageUrl}}" alt="stickerName">
                     <h3>{{name}}</h3>
                     <p>{{description}}</p>
                     {{/each}}  
                 </div>
-            {{/with}}  
+       
             {{/if}}
-                {{#unless accessory}}
+                {{#unless accessories}}
                 <h3 class="italic">This cube has no accessories yet...</h3>
                 {{/unless}}
             
