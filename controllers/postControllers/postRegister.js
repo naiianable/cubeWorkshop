@@ -1,5 +1,6 @@
 const User = require('../../models/User');
 const bcrypt = require('bcrypt');
+const { body, validationResult } = require('express-validator');
 
 let postRegister = function(req, res) {
     //console.log(req);
@@ -8,11 +9,17 @@ let postRegister = function(req, res) {
     let userPass = req.body.password;
     let userPassRepeat = req.body.repeatPassword;
     const saltRounds = 9;
+
     console.log(req.body);
     
+    
     // checking that password and repeat password are the same
-    if(userPass === userPassRepeat) {
-
+    let errors = validationResult(req);
+    
+    if(!errors.isEmpty()) {
+        res.cookie('errorMsg', errors);
+        res.redirect('/register');
+    } else {
         //hashing user password with bcrypt
         bcrypt.hash(userPass, saltRounds, function(err, hash) {
             newUser.password = hash;
@@ -23,9 +30,8 @@ let postRegister = function(req, res) {
 
             res.redirect('/login');
         });
-    } else {
-        //console.log('not working')
-        res.redirect('/register');
+        
+            
     }
     
 };

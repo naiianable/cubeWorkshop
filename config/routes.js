@@ -1,9 +1,3 @@
-const Cube = require('../models/Cube');
-const Accessory = require('../models/Accessory');
-const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-
 const renderIndex = require('../controllers/renderControllers/renderIndex');
 const renderLogin = require('../controllers/renderControllers/renderLogin');
 const renderRegister = require('../controllers/renderControllers/renderRegister');
@@ -21,15 +15,21 @@ const postCreate = require('../controllers/postControllers/postCreate');
 const postCreateAcc = require('../controllers/postControllers/postCreateAcc');
 const postAttach = require('../controllers/postControllers/postAttach');
 const postRegister = require('../controllers/postControllers/postRegister');
+const postEdit = require('../controllers/postControllers/postEdit');
 const postDelete = require('../controllers/postControllers/postDelete');
+
+//const jwtVerify = require('../middleware/jwtVerify');
+const validation = require('../middleware/validation');
+const clearCookie = require('../middleware/clearCookie');
+const errorMsg = require('../middleware/errorMsg');
 
 module.exports = (app) => {
     //getting all the routes working for express.js
     app.get('/', renderIndex);
 
-    app.get('/login', renderLogin);
+    app.get('/login', clearCookie, renderLogin);
 
-    app.get('/register', renderRegister);
+    app.get('/register', validation, clearCookie, renderRegister);
        
     app.get('/create', renderCreate);
 
@@ -42,7 +42,7 @@ module.exports = (app) => {
 
     app.get('/attachAccessory/:id', renderAttachAcc);
 
-    app.get('/editCubePage/:id', renderEdit);
+    app.get('/editCube/:id', renderEdit);
 
     app.get('/deleteCube/:id', renderDelete);
 
@@ -55,9 +55,13 @@ module.exports = (app) => {
 
     app.post('/attachAccessory/:id', postAttach);
 
-    app.post('/register', postRegister);
+    app.post('/register', validation, postRegister);
 
     app.post('/login', postLogin);
 
+    app.post('/editCube/:id', postEdit);
+
     app.post('/deleteCube/:id', postDelete);
+
+    // app.post('')
 };

@@ -29,7 +29,7 @@
 	<h1>Edit Cube</h1>
 <div class="form">
   {{#with cubeDetails}}
-  <form action='/' method="POST">
+  <form action='' method="POST">
     <label for="name">Name</label>
     <input type="text" id="name" name="name" value="{{name}}">
     <label for="name">Description</label>
@@ -37,19 +37,18 @@
     <label for="image">ImageUrl</label>
     <input type="text" id="image" name="imageUrl" value="{{imageUrl}}">
     <label for="difficulty">Difficulty</label>
-
+  {{/with}}
     <select id="difficulty" name="difficultyLevel" value="difficultyLevel">
-      <option value="{{difficultyLevel}}">{{difficultyLevel}}</option>
-      <option value="1">1 - Very Easy</option>
-      <option value="2">2 - Easy</option>
-      <option value="3">3 - Medium (Standard 3x3)</option>
-      <option value="4">4 - Intermediate</option>
-      <option value="5">5 - Expert</option>
-      <option value="6">6 - Hardcore</option>
+      <option value="1" {{#if lvlOne}}selected{{/if}}>1 - Very Easy</option>
+      <option value="2" {{#if lvlTwo}}selected{{/if}}>2 - Easy</option>
+      <option value="3" {{#if lvlThree}}selected{{/if}}>3 - Medium (Standard 3x3)</option>
+      <option value="4" {{#if lvlFour}}selected{{/if}}>4 - Intermediate</option>
+      <option value="5" {{#if lvlFive}}selected{{/if}}>5 - Expert</option>
+      <option value="6" {{#if lvlSix}}selected{{/if}}>6 - Hardcore</option>
     </select>
     <input type="submit" value="Edit">
   </form>
-  {{/with}}
+  
 </div>
     </main>
   </div>
