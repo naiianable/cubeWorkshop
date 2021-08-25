@@ -25,6 +25,11 @@
         {{/if}}
       </ul>
     </header>
+    {{#if errorDisplay}}
+    <div id='notifications'>
+      <p id='notification-message'>{{errorDisplay}}</p>
+    </div>
+    {{/if}}
     <main>
 	<h1>Register Form</h1>
 <div class="form">
