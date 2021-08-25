@@ -10,16 +10,17 @@ let postRegister = function(req, res) {
     let userPassRepeat = req.body.repeatPassword;
     const saltRounds = 9;
 
-    console.log(req.body);
+    //console.log('THIS IS THE BODY', req.body);
     
     
     // checking that password and repeat password are the same
     let errors = validationResult(req);
     
     if(!errors.isEmpty()) {
+        console.log(errors)
         res.cookie('errorMsg', errors);
         res.redirect('/register');
-    } else {
+    } else if(errors.isEmpty()) {
         //hashing user password with bcrypt
         bcrypt.hash(userPass, saltRounds, function(err, hash) {
             newUser.password = hash;
@@ -27,6 +28,8 @@ let postRegister = function(req, res) {
             newUser.save(function(err, user) {
                 if (err) return console.error(err);
             });
+
+            console.log('THIS IS ERRORS', errors);
 
             res.redirect('/login');
         });
