@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const User = require('../models/User')
 const validator = require('validator');
 
 
@@ -8,7 +9,14 @@ const validator = require('validator');
     .trim()
     .notEmpty()
     .isLength({ min: 5 })
-    .isAlphanumeric(),
+    .isAlphanumeric()
+    .custom(value => {
+        return User.findOne({username: value}).then(user => {
+          if (user) {
+            return Promise.reject('Username exists');
+          }
+        });
+    }),
 
     body('password', 'Password Invalid')
     .trim()

@@ -29,7 +29,7 @@ module.exports = (app) => {
     //getting all the routes working for express.js
     app.get('/', renderIndex);
 
-    app.get('/login', clearCookie, renderLogin);
+    app.get('/login', renderLogin);
 
     app.get('/register', renderRegister);
        
